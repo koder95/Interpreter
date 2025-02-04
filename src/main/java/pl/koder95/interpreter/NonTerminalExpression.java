@@ -1,8 +1,12 @@
 package pl.koder95.interpreter;
 
-public non-sealed interface NonTerminalExpression<C extends Context, R> extends Expression<C, R> {
+import java.util.Objects;
+
+public non-sealed interface NonTerminalExpression<T> extends Expression {
+    T getObject();
+
     @Override
-    default R interpret(C context) {
-        throw new UnsupportedOperationException();
+    default String asString() {
+        return Objects.toString(getObject());
     }
 }
