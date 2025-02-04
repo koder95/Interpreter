@@ -12,23 +12,33 @@ public interface Interpreter<C extends Context, R> {
      * @return kontekst używany podczas interpretacji wyrażeń terminalnych
      */
     C getContext();
+    
+    /**
+     * @return {@link Tokenizer tokenizer} używany przez {@link Parser parser} do budowy drzewa składni
+     */
+    Tokenizer getTokenizer();
+    /**
+     * @return {@link Parser parser}, który pobiera tokeny, aby stworzyć drzewo składniowe
+     */
+    Parser<C, R> getParser();
 
     /**
-     * Buduje drzewo abstrakcyjnej syntaktyki.
-     * @param expression wyrażenie
-     * @return wyrażenie terminalne najwyższego poziomu
+     * @return fabryka {@link java.util.Scanner skanerów}, które standardowo pomagają w przetwarzaniu danych wejściowych
      */
-    TerminalExpression<C,R> buildAbstractSyntaxTree(String expression);
+    ScannerFactory getScannerFactory();
 
     /**
      * Dokonuje interpretacji danych wejściowych korzystając z {@link Context kontekstu}. Dane najpierw są tokenizowane
      * i zamieniane na {@link NonTerminalExpression wyrażenia nieterminalne}, aby zbudować z nich drzewo abstrakcyjnej
      * syntaktyki (AST).
      *
+     * @param readable dane odczytywane przez tokenizer i zamieniane na postać terminalną
      * @return wynik interpretacji
      */
-    default R interpret(String expression) {
-        TerminalExpression<C, R> ast = buildAbstractSyntaxTree(expression);
+    default R interpret(Readable readable) {
+        Tokenizer tokenizer = getTokenizer();
+        tokenizer.useScanner(getScannerFactory().create(readable));
+        TerminalExpression<C, R> ast = getParser().buildAbstractSyntaxTree(tokenizer.enqueue());
         return ast.interpret(getContext());
     }
 }
