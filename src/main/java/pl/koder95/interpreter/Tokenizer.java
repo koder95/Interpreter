@@ -1,40 +1,37 @@
 package pl.koder95.interpreter;
 
 import java.util.Queue;
-import java.util.Scanner;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Definiuje sposób podziału danych wejściowych na tokeny.
- * Standardowo korzysta ze {@link Scanner skanera}, aby dzielić i analizować ciąg odczytywanych wartości.
- * Nic nie stoi na przeszkodzie, aby użyć innego sposobu. Wystarczy oprócz implementacji metody {@link #next()}
- * nadpisać metodę {@link #hasNext()}.
+ * Korzysta ze {@link Readable źródła znaków}, aby dostarczać ciąg odczytywanych znaków.
  */
 public abstract class Tokenizer {
 
-    private Scanner scanner;
+    private Readable source;
 
     /**
-     * Tworzy nową instancję tokenizera ustawiając skaner na wartość {@code null}.
-     * Dla poprawnego funkcjonowania należy wywołać metodę {@link #useScanner(Scanner)}.
+     * Tworzy nową instancję tokenizera ustawiając źródło znaków na wartość {@code null}.
+     * Dla poprawnego funkcjonowania należy wywołać metodę {@link #setSource(Readable)}.
      */
     public Tokenizer() {
-        this.scanner = null;
+        this.source = null;
     }
 
     /**
-     * @param scanner skaner używany podczas procesu tokenizacji danych wejściowych
+     * @param source źródło znaków wczytywanych podczas procesu tokenizacji
      */
-    public void useScanner(Scanner scanner) {
-        this.scanner = scanner;
+    public void setSource(Readable source) {
+        this.source = source;
     }
 
     /**
      * Metoda używana podczas procesu tworzenia tokenów w metodzie {@link #next()}.
-     * @return zwraca aktualnie ustawiony skaner
+     * @return zwraca aktualnie ustawione źródło
      */
-    protected final Scanner getScanner() {
-        return scanner;
+    protected final Readable getSource() {
+        return source;
     }
 
     /**
@@ -61,9 +58,7 @@ public abstract class Tokenizer {
      * Sprawdza, czy istnieje możliwość pobrania następnego tokenu.
      * @return {@code true} – jeśli istnieje następny token, {@code false} w przeciwnym razie
      */
-    public boolean hasNext() {
-        return scanner != null && scanner.hasNext();
-    }
+    public abstract boolean hasNext();
 
     /**
      * Przetwarza dane wejściowe i zwraca je w postaci {@link NonTerminalExpression wyrażenia nieterminalnego},

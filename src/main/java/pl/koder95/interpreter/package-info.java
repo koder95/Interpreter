@@ -14,9 +14,8 @@
  * Interfejs {@link pl.koder95.interpreter.Interpreter} dostarcza nie tylko
  * {@link pl.koder95.interpreter.Interpreter#interpret(java.lang.Readable) metodę interpretującą odczytywane wartości},
  * ale również implementacje interfejsów {@link pl.koder95.interpreter.Parser parsera},
- * {@link pl.koder95.interpreter.Tokenizer tokenizera} oraz {@link pl.koder95.interpreter.ScannerFactory fabryki skanerów},
+ * oraz {@link pl.koder95.interpreter.Tokenizer tokenizera},
  * które wykorzystywane są podczas budowania drzewa abstrakcyjnej syntaktyki za pomocą metod
- * {@link pl.koder95.interpreter.ScannerFactory#create(java.lang.Readable) create(java.lang.Readable)},
  * {@link pl.koder95.interpreter.Parser#buildAbstractSyntaxTree(java.util.Queue) buildAbstractSyntaxTree(java.util.Queue)}
  * oraz {@link pl.koder95.interpreter.Tokenizer#enqueue() enqueue()}.
  * </p>
@@ -25,7 +24,6 @@
  * @see pl.koder95.interpreter.Expression
  * @see pl.koder95.interpreter.Interpreter
  * @see pl.koder95.interpreter.Parser
- * @see pl.koder95.interpreter.ScannerFactory
  * @see pl.koder95.interpreter.Tokenizer
  */
 package pl.koder95.interpreter;

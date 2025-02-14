@@ -19,11 +19,6 @@ public interface Interpreter<C extends Context, R> {
     Parser<C, R> getParser();
 
     /**
-     * @return fabryka {@link java.util.Scanner skanerów}, które standardowo pomagają w przetwarzaniu danych wejściowych
-     */
-    ScannerFactory getScannerFactory();
-
-    /**
      * Dokonuje interpretacji danych wejściowych korzystając z {@link Context kontekstu}. Dane najpierw są tokenizowane
      * i zamieniane na {@link NonTerminalExpression wyrażenia nieterminalne}, aby zbudować z nich drzewo abstrakcyjnej
      * syntaktyki (AST).
@@ -39,8 +34,7 @@ public interface Interpreter<C extends Context, R> {
         Parser<C, R> parser = getParser();
         if (parser == null) throw new IllegalStateException("Cannot use readable when parser is null", new NullPointerException());
         Tokenizer tokenizer = parser.getTokenizer();
-        ScannerFactory factory = getScannerFactory();
-        if (tokenizer != null && factory != null) tokenizer.useScanner(factory.create(readable));
+        if (tokenizer != null) tokenizer.setSource(readable);
         else throw new IllegalStateException("Cannot use readable when tokenizer or scanner factory are null", new NullPointerException());
         TerminalExpression<C, R> ast = parser.buildAbstractSyntaxTree();
         return ast.interpret(getContext());
