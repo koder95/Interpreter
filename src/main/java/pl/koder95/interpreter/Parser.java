@@ -13,6 +13,7 @@ public interface Parser<C extends Context, R> {
      * Buduje drzewo abstrakcyjnej syntaktyki.
      * @param tokens dane wejściowe poddane tokenizacji
      * @return wyrażenie terminalne najwyższego poziomu
+     * @throws SyntaxException w przypadku błędów składniowych w dostarczonych danych
      */
     TerminalExpression<C, R> buildAbstractSyntaxTree(Queue<NonTerminalExpression<?>> tokens);
 }

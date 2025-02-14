@@ -34,6 +34,9 @@ public interface Interpreter<C extends Context, R> {
      *
      * @param readable dane odczytywane przez tokenizer i zamieniane na postać terminalną
      * @return wynik interpretacji
+     * @throws IllegalStateException w przypadku niedostarczenia parsera lub
+     *                               w przypadku niedostarczenia tokenizera przez parser
+     * @throws SyntaxException w przypadku błędów składniowych w dostarczonych danych
      */
     default R interpret(Readable readable) {
         Tokenizer tokenizer = getTokenizer();

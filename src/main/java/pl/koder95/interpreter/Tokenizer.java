@@ -41,6 +41,7 @@ public abstract class Tokenizer {
      * Umieszcza w kolejce wszystkie możliwe do odczytania tokeny.
      * @param queue kolejka wyrażeń nieterminalnych (tokenów)
      * @return {@code queue}
+     * @throws SyntaxException w przypadku błędów składniowych w dostarczonych danych
      */
     public final Queue<NonTerminalExpression<?>> enqueue(Queue<NonTerminalExpression<?>> queue) {
         while (hasNext()) queue.add(next());
@@ -50,6 +51,7 @@ public abstract class Tokenizer {
     /**
      * Tworzy nową kolejkę wyrażeń nieterminalnych (tokenów) i umieszcza w niej odczytane tokeny z wejścia.
      * @return nowa instancja kolejki {@link NonTerminalExpression wyrażeń nieterminalnych (tokenów)}
+     * @throws SyntaxException w przypadku błędów składniowych w dostarczonych danych
      */
     public Queue<NonTerminalExpression<?>> enqueue() {
         return enqueue(new LinkedBlockingQueue<>());
@@ -67,6 +69,7 @@ public abstract class Tokenizer {
      * Przetwarza dane wejściowe i zwraca je w postaci {@link NonTerminalExpression wyrażenia nieterminalnego},
      * czyli tokenu.
      * @return token typu {@link NonTerminalExpression}
+     * @throws SyntaxException w przypadku błędów składniowych w dostarczonych danych
      */
     public abstract NonTerminalExpression<?> next();
 }
