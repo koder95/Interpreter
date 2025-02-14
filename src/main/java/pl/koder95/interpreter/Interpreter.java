@@ -16,7 +16,11 @@ public interface Interpreter<C extends Context, R> {
     /**
      * @return {@link Tokenizer tokenizer} używany przez {@link Parser parser} do budowy drzewa składni
      */
-    Tokenizer getTokenizer();
+    default Tokenizer getTokenizer() {
+        Parser<C, R> parser = getParser();
+        return parser == null? null : parser.getTokenizer();
+    }
+
     /**
      * @return {@link Parser parser}, który pobiera tokeny, aby stworzyć drzewo składniowe
      */
@@ -35,13 +39,18 @@ public interface Interpreter<C extends Context, R> {
      * @param readable dane odczytywane przez tokenizer i zamieniane na postać terminalną
      * @return wynik interpretacji
      * @throws IllegalStateException w przypadku niedostarczenia parsera lub
-     *                               w przypadku niedostarczenia tokenizera przez parser
+     *                               w przypadku niedostarczenia tokenizera przez parser albo
+     *                               w przypadku niedostarczenia fabryki skanerów
      * @throws SyntaxException w przypadku błędów składniowych w dostarczonych danych
      */
     default R interpret(Readable readable) {
         Tokenizer tokenizer = getTokenizer();
-        tokenizer.useScanner(getScannerFactory().create(readable));
-        TerminalExpression<C, R> ast = getParser().buildAbstractSyntaxTree(tokenizer.enqueue());
+        ScannerFactory factory = getScannerFactory();
+        if (tokenizer != null && factory != null) tokenizer.useScanner(factory.create(readable));
+        else throw new IllegalStateException("Cannot use readable when tokenizer or scanner factory are null", new NullPointerException());
+        Parser<C, R> parser = getParser();
+        if (parser == null) throw new IllegalStateException("Cannot use readable when parser is null", new NullPointerException());
+        TerminalExpression<C, R> ast = parser.buildAbstractSyntaxTree();
         return ast.interpret(getContext());
     }
 }
