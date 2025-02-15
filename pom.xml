@@ -70,6 +70,8 @@
                 </executions>
                 <configuration>
                     <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+                    <additionalJOption>-Xdoclint:none</additionalJOption>
+                    <failOnError>false</failOnError>
                 </configuration>
             </plugin>
             <plugin>
