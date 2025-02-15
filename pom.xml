@@ -6,7 +6,7 @@
 
     <groupId>pl.koder95</groupId>
     <artifactId>interpreter</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>Interpreter by Koder95</name>
     <description>Universal implementation of the Interpreter Design Pattern.</description>
     <url>https://github.com/koder95/Interpreter</url>

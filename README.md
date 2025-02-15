@@ -24,8 +24,8 @@ który wykorzystywany jest do budowania drzewa abstrakcyjnej syntaktyki za pomoc
 ```xml
 <dependency>
     <groupId>pl.koder95</groupId>
-    <artifactId>Interpreter</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>interpreter</artifactId>
+    <version>1.0.0</version>
 </dependency>
 ```
 
