@@ -12,7 +12,7 @@ public abstract class Tokenizer {
     private Readable source;
 
     /**
-     * Tworzy nową instancję tokenizera ustawiając źródło znaków na wartość {@code null}.
+     * Tworzy nową instancję klasy Tokenizer ustawiając źródło znaków na wartość {@code null}.
      * Dla poprawnego funkcjonowania należy wywołać metodę {@link #setSource(Readable)}.
      */
     public Tokenizer() {
