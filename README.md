@@ -1,4 +1,6 @@
 # Wzorzec projektowy Interpreter
+[![Java CI with Maven](https://github.com/koder95/Interpreter/actions/workflows/maven.yml/badge.svg)](https://github.com/koder95/Interpreter/actions/workflows/maven.yml)
+
 Projekt jest implementacją wzorca projektowego *Interpreter* w wersji uniwersalnej.
 
 Interfejs [klienta](https://github.com/koder95/Interpreter/blob/master/src/main/java/pl/koder95/interpreter/Client.java) pozwala na stworzenie nowej instancji
