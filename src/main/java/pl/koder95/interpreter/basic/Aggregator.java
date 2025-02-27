@@ -1,5 +1,6 @@
 package pl.koder95.interpreter.basic;
 
+import pl.koder95.interpreter.Expression;
 /**
  * Interfejs definiujący operację agregacji dwóch obiektów {@link Expression} w jeden obiekt {@link Expression}.
  */
